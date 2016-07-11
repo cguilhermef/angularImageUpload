@@ -8,10 +8,9 @@
  * Controller of the imageuploadApp
  */
 angular.module('imageuploadApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($scope, FileUploader, $http) {
+    $scope.uploader = new FileUploader({
+      url: 'http://localhost:9255/upload',
+      removeAfterUpload: true
+    });
   });
