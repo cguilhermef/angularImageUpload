@@ -1,0 +1,23 @@
+{
+  "name": "imageupload",
+  "version": "0.1.0",
+  "dependencies": {
+    "tether": "~1.1.1",
+    "bootstrap": "zeta-labs/bootstrap#v4a2",
+    "components-font-awesome": "~4.6.3",
+    "angular": "^1.4.8",
+    "angular-animate": "^1.4.8",
+    "angular-cookies": "^1.4.8",
+    "angular-resource": "^1.4.8",
+    "angular-route": "^1.4.8",
+    "angular-sanitize": "^1.4.8",
+    "angular-touch": "^1.4.8",
+    "ui-framework": "zeta-labs/ui-framework#v0.3.8",
+    "ngToast": "ngtoast#~2.0.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.4.8"
+  },
+  "appPath": "app",
+  "moduleName": "imageuploadApp"
+}
