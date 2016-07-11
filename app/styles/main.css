@@ -1,83 +1,146 @@
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+html {
+  background-color: #34495e;
+  height: 100%;
+  overflow-y: scroll;
+  position: relative;
 }
-
-body {
-  padding: 0;
+body { height: 100%; }
+.loading {
+	background-color: #34495e;
+  padding: 3rem 0;
+  height: 100%;
+	text-align: center;
+	width: 100%;
 }
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+.loading-container {
+  animation: rotate 2s linear infinite;
+  margin-top: -32px;
+  position: relative;
+  top: 50%;
 }
-
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
+.loading-container .path {
+	stroke-dasharray: 1,150;
+	stroke-dashoffset: 0;
+	stroke: #fff;
+	stroke-linecap: round;
+	animation: dash 1.5s ease-in-out infinite;
+	-webkit-animation: dash 1.5s ease-in-out infinite;
 }
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
+@keyframes rotate{
+  100% { transform: rotate(360deg); }
 }
-
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
-}
-
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
+@keyframes dash {
+  0% {
+      stroke-dasharray: 1,150;
+      stroke-dashoffset: 0;
   }
+  50% {
+      stroke-dasharray: 90,150;
+      stroke-dashoffset: -35;
+  }
+  100% {
+      stroke-dasharray: 90,150;
+      stroke-dashoffset: -124;
+  }
+}
+.root {
+  height: 100%;
+  padding-top: 52px; /* compensa a altura do nav-bar */
+}
+.root.container-fluid {
+  background-color:  #34495e;
+  padding-top: 0;
+}
 
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+/*** block: Navigation ***/
+.navigation .navbar-brand {
+	display: inline-block;
+	margin-top: 0.25rem;
+	padding-top: 0;
+}
+.navigation .user {
+	float: right;
+}
+.navigation .show-hide-menu {
+	padding: 0.25rem 0.35rem;
+	float: right;
+}
+.navigation .show-hide-menu .fa {
+	font-size: 1.54rem;
+	line-height: 1;
+}
+.navigation .links-item {
+	float: left;
+}
+.navigation .links-item + .links-item {
+	margin-left: 1rem;
+}
+.navigation .links-link {
+	display: block;
+	padding: 0.5em 0;
+}
+.navigation .organization {
+	margin-top: .35rem;
+	padding: .1rem .5rem;
+}
+@media (max-width: 47.9em) {
+	.navigation .navbar {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.navigation .navbar-brand {
+		margin-left: 1rem;
+		margin-top: 0.09rem;
+	}
+	.navigation .show-hide-menu {
+		margin-right: .45rem;
+	}
+	.navigation .links {
+		border-top: 1px solid #eaeaea;
+		clear: both;
+		float: left;
+		margin-top: 0.4rem;
+		width: 100%;
+	}
+	.navigation .links-list {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	.navigation .user {
+		border-top: 1px solid #eaeaea;
+		clear: both;
+		float: none;
+		text-align: center;
+	}
+	.navigation .user {
+		padding-left: 1em;
+		padding-right: 1em;
+		padding-top: .3rem;
+		text-align: left;
+	}
+	.navigation .item,
+	.navigation .item + .item {
+		margin-left: 0;
+		width: 100%;
+	}
+	.navigation .user .nav-item {
+		display: inline-block;
+		float: none;
+	}
+	.navigation .user .nav-item:nth-child(2){
+		float: right;
+	}
+}
+.navbar{ border-radius: 0; }
+.navbar-dark{ background-color: #34495e; }
+.navbar-dark .navbar-nav .nav-link{ color: rgba(255, 255, 255, 0.75); }
+.navbar-dark .navbar-nav .nav-link:hover{ color: rgba(255, 255, 255, 1); }
+/*** block: Navigation end ***/
+/*** block: Navigation ***/
+.navigation .links,
+.navigation .user {
+  border-top-color: #4e6071;
+}
+.navigation .links-link {
+  color: rgba(255, 255, 255, 0.75);
 }

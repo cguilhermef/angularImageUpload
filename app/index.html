@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,700,300,600,400">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="bower_components/ui-framework/dist/ui-framework.css" />
     <link rel="stylesheet" href="bower_components/ngToast/dist/ngToast.css" />
@@ -24,37 +24,30 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-
-            <a class="navbar-brand" href="#/">imageupload</a>
-          </div>
-
-          <div class="collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-            </ul>
-          </div>
+    <div>
+      <div class="navbar navbar-dark bg-inverse navbar-toggleable-sm navbar-static-top" id="navbar">
+        <a href="#" class="navbar-brand" alt="zeta">
+          <img src="images/zeta.svg" height="25"/>
+        </a>
+        <div class="collapse navbar-toggleable-sm links" id="navigation">
+          <ul class="nav navbar-nav links-list">
+            <li class="nav-item item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-
+    <!-- Add your site or application content here -->
     <div class="container">
-    <div ng-view=""></div>
-    </div>
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+      <div ng-view="">
+        <div class="loading" id="nf-loader">
+          <svg class="loading-container" width="65px" height="65px" viewBox="0 0 52 52">
+            <circle class="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
+          </svg>
+        </div>
       </div>
     </div>
-
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
