@@ -144,3 +144,10 @@ body { height: 100%; }
 .navigation .links-link {
   color: rgba(255, 255, 255, 0.75);
 }
+
+.area-drop:hover {
+  background-color: #6898b5;
+  color: #fff;
+  opacity: .7;
+}
+.canvas-boxed { max-width: 100%; }

@@ -16,8 +16,15 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'angularFileUpload'
+    'angularFileUpload',
+    'ngToast'
   ])
+  .config(['ngToastProvider', function(ngToastProvider) {
+    ngToastProvider.configure({
+      horizontalPosition: 'center',
+      verticalPosition: 'top'
+    });
+  }])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
