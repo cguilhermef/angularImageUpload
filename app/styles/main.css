@@ -150,4 +150,8 @@ body { height: 100%; }
   color: #fff;
   opacity: .7;
 }
-.canvas-boxed { max-width: 100%; }
+.canvas-boxed {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
