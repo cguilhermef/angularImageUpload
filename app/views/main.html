@@ -19,10 +19,11 @@
           Files:
           <ul>
           <li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$errorParam}}
-            <span class="progress" ng-show="f.progress >= 0">
+            <img ngf-src="f" alt="">
+            <!-- <span class="progress" ng-show="f.progress >= 0">
               <div style="width:{{f.progress}}%"
                   ng-bind="f.progress + '%'"></div>
-            </span>
+            </span> -->
           </li>
           <li ng-repeat="f in errFiles" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}
           </li>
