@@ -455,16 +455,19 @@ module.exports = function (grunt) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
+    var tasks = [
+    'clean:server',
+    'wiredep',
+    'concurrent:server',
+    'postcss:server',
+    'connect:livereload',
+    'watch'];
 
-    grunt.task.run([
-      'express:server',
-      'clean:server',
-      'wiredep',
-      'concurrent:server',
-      'postcss:server',
-      'connect:livereload',
-      'watch'
-    ]);
+    if (target === 'express') {
+      tasks = ['express:server'].concat(tasks);
+    }
+    
+    grunt.task.run(tasks);
   });
 
   grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {

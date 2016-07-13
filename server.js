@@ -1,5 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var body = require('body/json');
+var url = require('url');
 var uuid = require('node-uuid');
 var fs = require('fs');
 var multer = require('multer');
@@ -19,57 +21,35 @@ app.use(function (req, res, next) {
   next();
 });
 
-
-// var storage =   multer.diskStorage({
-//   destination: function (req, file, callback) {
-//     callback(null, './uploads');
-//   },
-//   filename: function (req, file, callback) {
-//     callback(null, Date.now() + '-' + file.originalname);
-//   }
-// });
-
-// var upload = multer({ storage : storage}).single('file');
-
 var extractExtension = function(name) {
   return name.split('.').reverse()[0];
 }
 app.post('/api/v1/media', function(req, res){
     var id = uuid.v4();
-    var storage = multer.diskStorage({
-      destination: function(r, f, callback) {
-        callback(null, './uploads');
-      },
-      filename: function(r, file, callback) {
-        switch (file.mimetype) {
-          case 'image/jpeg': {
-            callback(null, `${id}.jpeg`);
-            break;
-          }
-          case 'image/png': {
-            callback(null, `${id}.png`);
-            break;
-          }
-          case 'image/gif': {
-            callback(null, `${id}.gif`);
-            break;
-          }
-          default: {
-            callback(true);
-            break;
-          }
-        }
-
+    var ext = '';
+    switch (req.get('Content-Type')) {
+      case 'image/jpeg': {
+        ext = 'jpeg';
+        break;
       }
-    });
-    var upload = multer({ storage : storage}).single('file');
-    upload(req,res,function(err) {
-        if(err) {
-            return res.status(422).end();
-        }
-        res.location(res.url(['media', id]));
-        res.status(201).end();
-    });
+      case 'image/png': {
+        ext = 'png';
+        break;
+      }
+      case 'image/gif': {
+        ext = 'gif';
+        break;
+      }
+      default: {
+        res.set('Content-Type', 'text/html; charset=utf-8')
+        res.status(422).end('Formato de imagem não aceito.');
+      }
+    }
+    req.pipe(fs.createWriteStream(`uploads/${id}.png`, {
+      flags: 'w',
+      autoClose: true
+    }));
+    res.status(200).end();
 });
 
 app.get('/api/v1/media/:id', function( req, res) {

@@ -16,7 +16,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'angularFileUpload',
+    'ngFileUpload',
     'ngToast'
   ])
   .config(['ngToastProvider', function(ngToastProvider) {
