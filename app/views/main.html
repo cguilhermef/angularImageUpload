@@ -11,22 +11,82 @@
     <div class="p4nel-body">
       <div class="row">
         <div class="col-xs-12">
-          <button
+          <div
+            ngf-select
+            ngf-drop
+            ngf-drag-over-class="'hover'"
+            ng-model="tmpFiles"
+            ngf-accept="'image/*'"
+            ngf-multiple="true"
+            ngf-keep="'distinct'"
+            class="well drop-area">
+            <small class="drop-area-label">Drop or select</small>
+          </div>
+          <div class="row">
+            <div
+              ng-repeat="f in files track by $index"
+              class="col-xs-12 col-md-3 m-t">
+              <div class="card">
+                <div class="text-xs-center">
+                  <img src="{{ f }}" alt="Card image" class="gallery-image">
+                </div>
+                <div class="card-block">
+                  <button
+                    class="btn btn-danger btn-sm btn-block">
+                    <span class="fa fa-ban"></span> Remover
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              ng-repeat="f in tmpFiles track by $index"
+              class="col-xs-12 col-md-3 m-t">
+              <div class="card">
+                <div class="text-xs-center">
+                  <img ngf-src="f" alt="Card image" class="gallery-image">
+                </div>
+                <div class="col-xs-12 m-t">
+                  <progress
+                    ng-show="f.progress"
+                    value="{{ f.progress }}"
+                    max="100"
+                    class="progress progress-success">
+                    <span class="progress-text">{{ f.progress }}%</span>
+                  </progress>
+                </div>
+                <div class="card-block">
+                  <button
+                    ng-show="f.error"
+                    ng-click="uploadFile(f)"
+                    class="btn btn-primary btn-sm btn-block">
+                    <span class="fa fa-upload"></span> Upload
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div ng-if="file">
+            tem arquivo
+          </div> -->
+          <!-- <button
+            ng-click="sigleUpload(file)"
+            class="btn btn-success btn-md m-t">
+            <span class="fa fa-upload"></span> Upload
+          </button> -->
+
+          <!-- <button
           ngf-select="sigleUpload($files)"
           accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
               Select Files</button>
-          <br><br>
-          Files:
+          <br><br> -->
+          <!-- Files:
           <ul>
           <li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$errorParam}}
             <img ngf-src="f" alt="">
-            <!-- <span class="progress" ng-show="f.progress >= 0">
-              <div style="width:{{f.progress}}%"
-                  ng-bind="f.progress + '%'"></div>
-            </span> -->
+
           </li>
           <li ng-repeat="f in errFiles" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}
-          </li>
+          </li> -->
         </ul>
         {{errorMsg}}
         </div>

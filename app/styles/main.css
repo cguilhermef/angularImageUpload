@@ -145,36 +145,15 @@ body { height: 100%; }
   color: rgba(255, 255, 255, 0.75);
 }
 
-.area-drop:hover {
-  background-color: #6898b5;
-  color: #fff;
-  opacity: .7;
+.drop-area {
+  background-color: #eaeaea;
+  border: 2px solid #e0e0e0;
+  border-radius: 2px;
+  min-height: 50px;
+  position: relative;
+  text-align: center;
 }
-.canvas-boxed {
-  display: block;
-  margin: 0 auto;
+.drop-area.hover { background-color: #e5e5e5; }
+.gallery-image {
   max-width: 100%;
-}
-
-.thumb {
-    width: 24px;
-    height: 24px;
-    float: none;
-    position: relative;
-    top: 7px;
-}
-
-form .progress {
-    line-height: 15px;
-}
-.progress {
-    display: inline-block;
-    width: 100px;
-    border: 3px groove #CCC;
-}
-
-.progress div {
-    font-size: smaller;
-    background: orange;
-    width: 0;
 }

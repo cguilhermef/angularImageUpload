@@ -32,10 +32,10 @@ app.post('/api/v1/media', function(req, res){
         ext = 'jpeg';
         break;
       }
-      case 'image/png': {
-        ext = 'png';
-        break;
-      }
+      // case 'image/png': {
+      //   ext = 'png';
+      //   break;
+      // }
       case 'image/gif': {
         ext = 'gif';
         break;
@@ -70,26 +70,7 @@ app.get('/api/v1/media/:id', function( req, res) {
   } else {
     res.sendStatus(415);
   }
-})
-
-// app.post('/upload', function(req, res) {
-//   var form = new formidable.IncomingForm();
-//   form.parse(req, function(err, fields, files) {
-//     var file = files.file;
-//     var pathIn = file.path;
-//     var pathOut = 'uploads/' + file.name;
-//     // console.log(path);
-//     var readStream = fs.createReadStream(pathIn);
-//     var writeStream = fs.createWriteStream(pathOut, {
-//       flags: 'w',
-//       autoClose: true,
-//       filename: file.name
-//     });
-//     readStream.pipe(writeStream);
-//     writeStream.close();
-//   });
-//   res.end();
-// });
+});
 app.get('/digaOla', function(req, res) {
   res.send("Olá!").end();
 })
