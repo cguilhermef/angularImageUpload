@@ -1,29 +1,32 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var body = require('body/json');
 var url = require('url');
 var uuid = require('node-uuid');
 var fs = require('fs');
-var multer = require('multer');
+var path = require('path');
 var app = express();
+var _ = require('lodash');
+
+app.set('path', ['api', 'v1']);
+app.set('root', `${__dirname}/uploads`);
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Location");
+  res.header('Access-Control-Expose-Headers', 'Location');
   next();
 });
+
 app.use(function (req, res, next) {
   res.url = function (path) {
-    return [req.protocol+'://'+req.get('host')].concat(path).join('/');
+    return [req.protocol+'://'+req.get('host')].concat(app.get('path')).concat(path).join('/');
   }
   next();
 });
 
-var extractExtension = function(name) {
-  return name.split('.').reverse()[0];
-}
 app.post('/api/v1/media', function(req, res){
     var id = uuid.v4();
     var ext = '';
@@ -32,10 +35,10 @@ app.post('/api/v1/media', function(req, res){
         ext = 'jpeg';
         break;
       }
-      // case 'image/png': {
-      //   ext = 'png';
-      //   break;
-      // }
+      case 'image/png': {
+        ext = 'png';
+        break;
+      }
       case 'image/gif': {
         ext = 'gif';
         break;
@@ -45,7 +48,8 @@ app.post('/api/v1/media', function(req, res){
         res.status(422).end('Formato de imagem não aceito.');
       }
     }
-    req.pipe(fs.createWriteStream(`uploads/${id}.png`, {
+    res.location(res.url(['media', id]));
+    req.pipe(fs.createWriteStream(`uploads/${id}.${ext}`, {
       flags: 'w',
       autoClose: true
     }));
@@ -55,25 +59,44 @@ app.post('/api/v1/media', function(req, res){
 app.get('/api/v1/media/:id', function( req, res) {
 
   var options = {
-    root: __dirname + '/uploads'
+    root: app.get('root')
   };
   var id = req.params.id;
   var callback = function(error) {
-    if (error) { res.sendStatus(404); }
+    if (error) {
+      console.error(error);
+      res.sendStatus(404);
+    }
   };
-  if (req.accepts('jpeg')) {
-    res.contentType('image/jpeg');
-    res.sendFile(`${id}.jpeg`, options, callback);
-  } else if (req.accepts('png')) {
-    res.contentType('image/png');
-    res.sendFile(`${id}.png`, options, callback);
-  } else {
-    res.sendStatus(415);
-  }
+  var file = searchFile(id, options, function(err, data) {
+    if (err) { res.sendStatus(404); }
+    console.log('data', data);
+    res.sendFile(data, options, callback);
+  });
 });
-app.get('/digaOla', function(req, res) {
-  res.send("Olá!").end();
-})
+
+var searchFile = function(filename, options, callback) {
+  var { root } = options;
+
+  if (!filename) {
+    callback(true);
+    return;
+  }
+
+  var dir = fs.readdirSync(root);
+  var files = _.reduce(dir, function(result, file) {
+    if (file.search(filename) > -1) {
+      result.push(file);
+    }
+    return result;
+  }, []);
+  if (!files) {
+    callback(true);
+    return;
+  }
+  callback(null, _.head(files));
+};
+
 app.listen(9255, function() {
   console.log('Let\'s do it on 9255... ');
 });

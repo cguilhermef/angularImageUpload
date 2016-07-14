@@ -9,22 +9,31 @@
  */
 angular.module('imageuploadApp')
   .controller('MainCtrl', function ($scope, $rootScope, Upload, ngToast, $http) {
-
+    $scope.onLoadFile = function(event) {
+        var img = new Image();
+        img.onload = onLoadImage;
+        return event.target.result;
+        // return img;
+    };
     $scope.init = function() {
       if (!$scope.model) { $scope.model = {}; }
       $scope.tmpFiles = [];
       $scope.files = [];
-
-      $http.get('http://localhost:9255/api/v1/media/076ffc02-c076-43f8-a725-1ce322b7bee5',
-        { headers: { 'Accept': 'image/png' } })
-        .then(function(response){
-          $scope.files.push(response.data);
-          console.log($scope.files);
-        }, function(error) {
-          console.log(error);
-        });
+      $scope.files.push({
+        url: 'http://localhost:9255/api/v1/media/9bb20099-a518-475b-a175-95c15e1c6131'
+      });
+      // $http.get('http://localhost:9255/get-media/9bb20099-a518-475b-a175-95c15e1c6131.png',
+      //   { headers: { 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' } })
+      //   .then(function(response){
+      //     console.log(response);
+      //     // $scope.files.push('data:image/png;base64,' + response.data);
+      //
+      //   }, function(error) {
+      //     console.log(error);
+      //   });
     };
 
+    $scope
 
     $scope.uploadFile = function(file) {
       $rootScope.$emit('fileUpload.start');
@@ -42,7 +51,11 @@ angular.module('imageuploadApp')
         file.uploaded = true;
         file.error = false;
         file.uploading = false;
-        $scope.files.push(file);
+        console.log(response);
+        $scope.files.push({
+          url: response.headers('Location')
+        });
+
       }, function(error) {
         $rootScope.$emit('fileUpload.error', error);
         file.error = true;
@@ -67,6 +80,5 @@ angular.module('imageuploadApp')
       ngToast.dismiss();
       ngToast.danger('Erro - ' + error.data);
     });
-
     $scope.init();
   });

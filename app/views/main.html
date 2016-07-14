@@ -23,18 +23,20 @@
             <small class="drop-area-label">Drop or select</small>
           </div>
           <div class="row">
-            <div
-              ng-repeat="f in files track by $index"
-              class="col-xs-12 col-md-3 m-t">
-              <div class="card">
-                <div class="text-xs-center">
-                  <img src="{{ f }}" alt="Card image" class="gallery-image">
-                </div>
-                <div class="card-block">
-                  <button
-                    class="btn btn-danger btn-sm btn-block">
-                    <span class="fa fa-ban"></span> Remover
-                  </button>
+            <div ng-if="files.length > 0">
+              <div
+                ng-repeat="f in files track by $index"
+                class="col-xs-12 col-md-3 m-t">
+                <div class="card">
+                  <div class="text-xs-center">
+                    <img src="{{ f.url }}" alt="Card image" class="gallery-image">
+                  </div>
+                  <div class="card-block">
+                    <button
+                      class="btn btn-danger btn-sm btn-block">
+                      <span class="fa fa-ban"></span> Remover
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -56,7 +58,6 @@
                 </div>
                 <div class="card-block">
                   <button
-                    ng-show="f.error"
                     ng-click="uploadFile(f)"
                     class="btn btn-primary btn-sm btn-block">
                     <span class="fa fa-upload"></span> Upload
@@ -65,29 +66,6 @@
               </div>
             </div>
           </div>
-          <!-- <div ng-if="file">
-            tem arquivo
-          </div> -->
-          <!-- <button
-            ng-click="sigleUpload(file)"
-            class="btn btn-success btn-md m-t">
-            <span class="fa fa-upload"></span> Upload
-          </button> -->
-
-          <!-- <button
-          ngf-select="sigleUpload($files)"
-          accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
-              Select Files</button>
-          <br><br> -->
-          <!-- Files:
-          <ul>
-          <li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$errorParam}}
-            <img ngf-src="f" alt="">
-
-          </li>
-          <li ng-repeat="f in errFiles" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}
-          </li> -->
-        </ul>
         {{errorMsg}}
         </div>
       </div>
