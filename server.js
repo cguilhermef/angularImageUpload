@@ -1,11 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var http = require('http');
 var url = require('url');
 var uuid = require('node-uuid');
 var fs = require('fs');
-var path = require('path');
-var app = express();
 var _ = require('lodash');
+
+var app = express();
 
 app.set('path', ['api', 'v1']);
 app.set('root', `${__dirname}/uploads`);
@@ -70,7 +71,6 @@ app.get('/api/v1/media/:id', function( req, res) {
   };
   var file = searchFile(id, options, function(err, data) {
     if (err) { res.sendStatus(404); }
-    console.log('data', data);
     res.sendFile(data, options, callback);
   });
 });
@@ -97,6 +97,10 @@ var searchFile = function(filename, options, callback) {
   callback(null, _.head(files));
 };
 
-app.listen(9255, function() {
-  console.log('Let\'s do it on 9255... ');
+var server = http.createServer(app);
+// reload(server, app);
+server.listen(process.argv[2] || 9255, function(){
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log('Web server listening at http://%s:%s', host, port);
 });

@@ -9,69 +9,10 @@
       </h3>
     </div>
     <div class="p4nel-body">
-      <div class="row">
-        <div class="col-xs-12">
-          
-
-
-          <div
-            ngf-select
-            ngf-drop
-            ngf-drag-over-class="'hover'"
-            ng-model="tmpFiles"
-            ngf-accept="'image/*'"
-            ngf-multiple="true"
-            ngf-keep="'distinct'"
-            class="well drop-area">
-            <small class="drop-area-label">Drop or select</small>
-          </div>
-          <div class="row">
-            <div ng-if="files.length > 0">
-              <div
-                ng-repeat="f in files track by $index"
-                class="col-xs-12 col-md-3 m-t">
-                <div class="card">
-                  <div class="text-xs-center">
-                    <img src="{{ f.url }}" alt="Card image" class="gallery-image">
-                  </div>
-                  <div class="card-block">
-                    <button
-                      class="btn btn-danger btn-sm btn-block">
-                      <span class="fa fa-ban"></span> Remover
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              ng-repeat="f in tmpFiles track by $index"
-              class="col-xs-12 col-md-3 m-t">
-              <div class="card">
-                <div class="text-xs-center">
-                  <img ngf-src="f" alt="Card image" class="gallery-image">
-                </div>
-                <div class="col-xs-12 m-t">
-                  <progress
-                    ng-show="f.progress"
-                    value="{{ f.progress }}"
-                    max="100"
-                    class="progress progress-success">
-                    <span class="progress-text">{{ f.progress }}%</span>
-                  </progress>
-                </div>
-                <div class="card-block">
-                  <button
-                    ng-click="uploadFile(f)"
-                    class="btn btn-primary btn-sm btn-block">
-                    <span class="fa fa-upload"></span> Upload
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        {{errorMsg}}
-        </div>
-      </div>
+      <zt-gallery
+        images="model.files"
+        upload-url="model.url">
+      </zt-gallery>
     </div>
   </section>
 </div>

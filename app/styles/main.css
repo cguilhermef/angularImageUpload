@@ -1,12 +1,14 @@
 html {
-  background-color: #34495e;
+  /*background-color: #34495e;*/
   height: 100%;
   overflow-y: scroll;
   position: relative;
 }
-body { height: 100%; }
+body {
+  height: 100%;
+}
 .loading {
-	background-color: #34495e;
+	background-color: #fff;
   padding: 3rem 0;
   height: 100%;
 	text-align: center;
@@ -21,7 +23,7 @@ body { height: 100%; }
 .loading-container .path {
 	stroke-dasharray: 1,150;
 	stroke-dashoffset: 0;
-	stroke: #fff;
+	stroke: #34495e;
 	stroke-linecap: round;
 	animation: dash 1.5s ease-in-out infinite;
 	-webkit-animation: dash 1.5s ease-in-out infinite;
@@ -145,15 +147,30 @@ body { height: 100%; }
   color: rgba(255, 255, 255, 0.75);
 }
 
+.gallery { position: relative; }
+
 .drop-area {
   background-color: #eaeaea;
   border: 2px solid #e0e0e0;
   border-radius: 2px;
-  min-height: 50px;
-  position: relative;
+  display: none;
+  height: 160px;
+  left: 0;
+  position: absolute;
   text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
-.drop-area.hover { background-color: #e5e5e5; }
+.drop-area.active {
+  background-color: rgba(234,234,234,.8);
+  border: 4px dashed #e0e0e0;
+  display: block;
+}
+.gallery-item .fa {
+  margin-top: 40px;
+  position: relative;
+}
 .gallery-image {
   max-width: 100%;
 }

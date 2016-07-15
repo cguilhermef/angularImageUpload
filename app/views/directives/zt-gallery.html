@@ -1,0 +1,70 @@
+<div class="gallery">
+  <div class="row">
+    <div class="col-xs-12">
+      <button
+        ng-model="tmpFiles"
+        ngf-accept="'image/*'"
+        ngf-multiple="true"
+        ngf-keep="'distinct'"
+        class="btn btn-primary">
+        <span class="fa fa-folder-open"></span> Escolher arquivos
+      </button>
+      <hr>
+      <div
+        id="area-droppable"
+        ngf-select
+        ngf-drop
+        ngf-drag-over-class="'hover'"
+        ng-model="tmpFiles"
+        ngf-accept="'image/*'"
+        ngf-multiple="true"
+        ngf-keep="'distinct'"
+        class="drop-area"></div>
+
+      <div class="row">
+        <div ng-if="images.length > 0">
+          <div
+            ng-repeat="f in images track by $index"
+            class="col-xs-12 col-md-3 m-t">
+            <div class="card">
+              <div class="text-xs-center">
+                <img src="{{ f.url }}" alt="Card image" class="gallery-image">
+              </div>
+              <div class="card-block">
+                <button
+                  class="btn btn-danger btn-sm btn-block">
+                  <span class="fa fa-ban"></span> Remover
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          ng-repeat="f in tmpFiles track by $index"
+          class="col-xs-12 col-md-3 m-t">
+          <div class="card">
+            <div class="text-xs-center">
+              <img ngf-src="f" alt="Card image" class="gallery-image">
+            </div>
+            <div class="col-xs-12 m-t">
+              <progress
+                ng-show="f.progress"
+                value="{{ f.progress }}"
+                max="100"
+                class="progress progress-success">
+                <span class="progress-text">{{ f.progress }}%</span>
+              </progress>
+            </div>
+            <div class="card-block">
+              <button
+                ng-click="uploadFile(f)"
+                class="btn btn-primary btn-sm btn-block">
+                <span class="fa fa-upload"></span> Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
