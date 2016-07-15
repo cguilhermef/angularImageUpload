@@ -33,8 +33,6 @@ angular.module('imageuploadApp')
       //   });
     };
 
-    $scope
-
     $scope.uploadFile = function(file) {
       $rootScope.$emit('fileUpload.start');
       $scope.model.running = true;
