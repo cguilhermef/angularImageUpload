@@ -149,23 +149,29 @@ body {
 
 .gallery { position: relative; }
 
-.drop-area {
+.gallery-drop-area {
   background-color: #eaeaea;
   border: 2px solid #e0e0e0;
   border-radius: 2px;
+  bottom: 0;
   display: none;
-  height: 160px;
+  height: 350px;
   left: 0;
-  position: absolute;
+  position: fixed;
   text-align: center;
-  top: 0;
   width: 100%;
   z-index: 1;
 }
-.drop-area.active {
+.gallery-drop-area.active {
   background-color: rgba(234,234,234,.8);
   border: 4px dashed #e0e0e0;
   display: block;
+}
+.gallery-drop-info {
+  color: #c0c0c0;
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
 }
 .gallery-item .fa {
   margin-top: 40px;
@@ -173,4 +179,15 @@ body {
 }
 .gallery-image {
   max-width: 100%;
+}
+.gallery-zoom-area {
+  border: 1px solid #eaeaea;
+  position: relative;
+  text-align: center;
+}
+.gallery-zoom-close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  z-index: 1;
 }

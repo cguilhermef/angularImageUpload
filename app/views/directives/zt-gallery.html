@@ -3,24 +3,52 @@
     <div class="col-xs-12">
       <button
         ng-model="tmpFiles"
+        ngf-select="onChoose($files)"
         ngf-accept="'image/*'"
-        ngf-multiple="true"
+        ngf-multiple="'true'"
         ngf-keep="'distinct'"
         class="btn btn-primary">
         <span class="fa fa-folder-open"></span> Escolher arquivos
       </button>
+      <button
+        ng-click="uploadAll()"
+        ng-show="tmpFiles.length > 0"
+        class="btn btn-success">
+        <span class="fa fa-upload"></span> Enviar todos
+      </button>
+      <button
+        ng-click="cancelAll()"
+        ng-show="tmpFiles.length > 0 && uploading"
+        class="btn btn-warning">
+        <span class="fa fa-ban"></span> Enviar todos
+      </button>
       <hr>
       <div
         id="area-droppable"
-        ngf-select
-        ngf-drop
+        ngf-select="onChoose($files)"
+        ngf-drop="onChoose($files)"
         ngf-drag-over-class="'hover'"
         ng-model="tmpFiles"
         ngf-accept="'image/*'"
         ngf-multiple="true"
         ngf-keep="'distinct'"
-        class="drop-area"></div>
-
+        class="gallery-drop-area">
+          <span class="gallery-drop-info">Solte os arquivos aqui</span>
+        </div>
+      <div
+        ng-show="zoomIn"
+        class="row">
+        <div class="col-xs-12">
+          <div class="gallery-zoom-area">
+            <a
+              class="gallery-zoom-close"
+              ng-click="zoomClose()">
+              <span class="fa fa-close"></span>
+            </a>
+            <img src="{{ zoomIn }}" alt="" class="img-responsive" style="max-width: 100%">
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div ng-if="images.length > 0">
           <div
@@ -28,7 +56,11 @@
             class="col-xs-12 col-md-3 m-t">
             <div class="card">
               <div class="text-xs-center">
-                <img src="{{ f.url }}" alt="Card image" class="gallery-image">
+                <a
+                  ng-click="zoom(f.url)"
+                  class="gallery-zoom">
+                  <img src="{{ f.url }}" alt="Card image" class="gallery-image">
+                </a>
               </div>
               <div class="card-block">
                 <button

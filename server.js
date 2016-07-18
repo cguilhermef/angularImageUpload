@@ -31,6 +31,7 @@ app.use(function (req, res, next) {
 app.post('/api/v1/media', function(req, res){
     var id = uuid.v4();
     var ext = '';
+    var ok = true;
     switch (req.get('Content-Type')) {
       case 'image/jpeg': {
         ext = 'jpeg';
@@ -47,14 +48,15 @@ app.post('/api/v1/media', function(req, res){
       default: {
         res.set('Content-Type', 'text/html; charset=utf-8')
         res.status(422).end('Formato de imagem não aceito.');
+        return;
       }
     }
-    res.location(res.url(['media', id]));
+    // if (!ok) { return; }
     req.pipe(fs.createWriteStream(`uploads/${id}.${ext}`, {
       flags: 'w',
       autoClose: true
     }));
-    res.status(200).end();
+    res.location(res.url(['media', id])).status(200).end();
 });
 
 app.get('/api/v1/media/:id', function( req, res) {

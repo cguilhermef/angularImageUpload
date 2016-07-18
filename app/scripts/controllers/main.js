@@ -15,9 +15,9 @@ angular.module('imageuploadApp')
       $scope.tmpFiles = [];
       $scope.model.files = [];
       $scope.model.url = 'http://localhost:9255/api/v1/media/';
-      $scope.model.files.push({
-        url: $scope.model.url + '9bb20099-a518-475b-a175-95c15e1c6131'
-      });
+      // $scope.model.files.push({
+      //   url: $scope.model.url + '0dd7ec92-10f2-43c2-a70e-dd739a851a97'
+      // });
 
     };
     $rootScope.$on('fileUpload.start', function() {
