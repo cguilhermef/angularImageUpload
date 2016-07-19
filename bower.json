@@ -1,6 +1,6 @@
 {
   "name": "imageupload",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "tether": "~1.1.1",
     "bootstrap": "zeta-labs/bootstrap#v4a2",

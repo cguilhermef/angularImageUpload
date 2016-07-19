@@ -1,7 +1,7 @@
 {
   "name": "imageupload",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
     "body": "^5.1.0",
