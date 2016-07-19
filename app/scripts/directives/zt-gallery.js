@@ -13,15 +13,15 @@ angular.module('imageuploadApp')
       restrict: 'E',
       scope: {
         images: '=galleryModel',
-        uploadUrl: '=galleryUploadUrl'
+        uploadUrl: '=galleryUploadUrl',
+        dropAreaText: '@galleryDropText'
       },
       link: function postLink(scope, element) {
-        var timer = null;
         var dropArea = $(element).find('.gallery-drop-area');
         scope.model = {};
         scope.zoomIn = null;
 
-        $.fn.dndhover = function(options) {
+        $.fn.dndhover = function() {
           return this.each(function() {
             var self = $(this);
             var collection = $();
@@ -72,24 +72,29 @@ angular.module('imageuploadApp')
         };
         scope.removeUploaded = function() {
           scope.tmpFiles = scope.tmpFiles.reduce(function(result, item) {
-            console.log(item);
             if (!item.uploaded) {
-              console.log('not upload:', item, result);
               result.push(item);
             }
             return result;
           }, []);
         };
+        scope.removeFile = function(f) {
+          scope.images = scope.images.reduce(function(result, item) {
+            if (item.url !== f.url) {
+              result.push(item);
+            }
+            return result;
+          },[]);
+        };
         scope.uploadAll = function() {
-          for ( let file of scope.tmpFiles ) {
+          angular.forEach(scope.tmpFiles, function(file) {
             scope.uploadFile(file);
-          }
+          });
         };
         scope.uploadFile = function(file) {
           $rootScope.$emit('fileUpload.start');
           scope.model.running = true;
           scope.model.uploading = true;
-          // file.uploading = true;
           Upload.http({
             url: scope.uploadUrl,
             method: 'POST',

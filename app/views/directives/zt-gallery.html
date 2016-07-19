@@ -16,13 +16,6 @@
         class="btn btn-success">
         <span class="fa fa-upload"></span> Enviar todos
       </button>
-      <button
-        ng-click="cancelAll()"
-        ng-show="tmpFiles.length > 0 && uploading"
-        class="btn btn-warning">
-        <span class="fa fa-ban"></span> Enviar todos
-      </button>
-      <hr>
       <div
         id="area-droppable"
         ngf-select="onChoose($files)"
@@ -33,11 +26,11 @@
         ngf-multiple="true"
         ngf-keep="'distinct'"
         class="gallery-drop-area">
-          <span class="gallery-drop-info">Solte os arquivos aqui</span>
+          <span class="gallery-drop-info">{{ ( dropAreaText || "Solte os arquivos aqui" ) }}</span>
         </div>
       <div
         ng-show="zoomIn"
-        class="row">
+        class="row m-t">
         <div class="col-xs-12">
           <div class="gallery-zoom-area">
             <a
@@ -54,7 +47,7 @@
           <div
             ng-repeat="f in images track by $index"
             class="col-xs-12 col-md-3 m-t">
-            <div class="card">
+            <div class="card gallery-item">
               <div class="text-xs-center">
                 <a
                   ng-click="zoom(f.url)"
@@ -62,8 +55,9 @@
                   <img src="{{ f.url }}" alt="Card image" class="gallery-image">
                 </a>
               </div>
-              <div class="card-block">
+              <div class="card-block gallery-item-actions">
                 <button
+                  ng-click="removeFile(f)"
                   class="btn btn-danger btn-sm btn-block">
                   <span class="fa fa-ban"></span> Remover
                 </button>
@@ -74,7 +68,7 @@
         <div
           ng-repeat="f in tmpFiles track by $index"
           class="col-xs-12 col-md-3 m-t">
-          <div class="card">
+          <div class="card gallery-item">
             <div class="text-xs-center">
               <img ngf-src="f" alt="Card image" class="gallery-image">
             </div>
@@ -87,9 +81,10 @@
                 <span class="progress-text">{{ f.progress }}%</span>
               </progress>
             </div>
-            <div class="card-block">
+            <div class="card-block gallery-item-actions">
               <button
                 ng-click="uploadFile(f)"
+                ng-show="!f.progress"
                 class="btn btn-primary btn-sm btn-block">
                 <span class="fa fa-upload"></span> Upload
               </button>

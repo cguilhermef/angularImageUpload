@@ -170,20 +170,27 @@ body {
 .gallery-drop-info {
   color: #c0c0c0;
   font-size: 2rem;
+  left: 0;
   position: absolute;
   top: 50%;
-}
-.gallery-item .fa {
-  margin-top: 40px;
-  position: relative;
+  text-align: center;
+  width: 100%;
 }
 .gallery-image {
+  max-height: 120px;
   max-width: 100%;
 }
+.gallery-item { min-height: 200px; }
 .gallery-zoom-area {
   border: 1px solid #eaeaea;
   position: relative;
   text-align: center;
+}
+.gallery-item-actions {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
 }
 .gallery-zoom-close {
   position: absolute;
