@@ -52,6 +52,7 @@ angular.module('imageuploadApp')
         };
         $(window).dndhover().on({
             'dndHoverStart': function(event) {
+                $rootScope.$emit('gallery.drag.start', event);
                 $(dropArea).addClass('active');
                 event.stopPropagation();
                 event.preventDefault();
@@ -59,15 +60,18 @@ angular.module('imageuploadApp')
             },
             'dndHoverEnd': function(event) {
                 $(dropArea).removeClass('active');
+                $rootScope.$emit('gallery.drag.end', event);
                 event.stopPropagation();
                 event.preventDefault();
                 return false;
             }
         });
         scope.zoom = function(url) {
+          $rootScope.$emit('gallery.zoom.start', url);
           scope.zoomIn = url;
         };
         scope.zoomClose = function() {
+          $rootScope.$emit('gallery.zoom.end');
           scope.zoomIn = null;
         };
         scope.removeUploaded = function() {
@@ -79,20 +83,23 @@ angular.module('imageuploadApp')
           }, []);
         };
         scope.removeFile = function(f) {
+          $rootScope.$emit('galley.removeFile.start', f);
           scope.images = scope.images.reduce(function(result, item) {
             if (item.url !== f.url) {
               result.push(item);
             }
             return result;
           },[]);
+          $rootScope.$emit('galley.removeFile.end', scope.images);
         };
         scope.uploadAll = function() {
+          $rootScope.$emit('gallery.uploadAll.start', scope.tmpFiles);
           angular.forEach(scope.tmpFiles, function(file) {
             scope.uploadFile(file);
           });
         };
         scope.uploadFile = function(file) {
-          $rootScope.$emit('fileUpload.start');
+          $rootScope.$emit('gallery.uploadFile.start', file);
           scope.model.running = true;
           scope.model.uploading = true;
           Upload.http({
@@ -103,7 +110,7 @@ angular.module('imageuploadApp')
             },
             data: file
           }).then(function(response) {
-            $rootScope.$emit('fileUpload.done', response);
+            $rootScope.$emit('gallery.uploadFile.end', response);
             file.uploaded = true;
             file.error = false;
             file.uploading = false;
@@ -114,7 +121,7 @@ angular.module('imageuploadApp')
             });
             scope.removeUploaded();
           }, function(error) {
-            $rootScope.$emit('fileUpload.error', error);
+            $rootScope.$emit('gallery.uploadFile.error', error);
             file.error = true;
             scope.model.uploading = false;
             scope.model.running = false;

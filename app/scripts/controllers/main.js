@@ -20,18 +20,18 @@ angular.module('imageuploadApp')
       });
 
     };
-    $rootScope.$on('fileUpload.start', function() {
+    $rootScope.$on('galley.uploadFile.start', function() {
       $scope.model.running = true;
       ngToast.dismiss();
       ngToast.warning('Enviando arquivos...');
     });
-    $rootScope.$on('fileUpload.done', function($event, response) {
+    $rootScope.$on('galley.uploadFile.end', function($event, response) {
       $scope.model.running = false;
       ngToast.dismiss();
       ngToast.success('Arquivo enviado com sucesso!');
       console.log($event, response);
     });
-    $rootScope.$on('fileUpload.error', function($event, error) {
+    $rootScope.$on('galley.uploadFile.error', function($event, error) {
       $scope.model.running = false;
       ngToast.dismiss();
       ngToast.danger('Erro - ' + error.data);
